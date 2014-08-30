@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>rockin_converter</name>
+  <version>0.0.0</version>
+  <description>The rockin_converter package</description>
+  <license>LGPLv3</license>
+  <maintainer email="jreis@isr.ist.utl.pt">Joao Reis</maintainer>
+  <author email="jreis@isr.ist.utl.pt">Joao Reis</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rosbag</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>audio_common_msgs</build_depend>
+  <run_depend>rosbag</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>audio_common_msgs</run_depend>
+</package>

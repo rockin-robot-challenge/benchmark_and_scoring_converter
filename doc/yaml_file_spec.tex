@@ -1,0 +1,245 @@
+\documentclass[a4paper]{article}
+
+\usepackage{a4wide}
+\usepackage{hyperref}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\author{João Reis\\\href{mailto:jreis@isr.ist.utl.pt}{\nolinkurl{jreis@isr.ist.utl.pt}}}
+\title{RoCKIn YAML Data File Specification}
+\date{August 30, 2014}
+
+\begin{document} 
+
+\maketitle
+
+
+This document specifies the YAML file format that can be converted to ROS bag files. This closely follows the data items described in D-2.1.7.
+
+
+\section{Topic Names}
+
+Deliverable D-2.1.7 specifies the data types but does not specify the topic names. The following table lists the topic names adopted. The same
+topic name might have slightly different meanings for each benchmark where it appears, but always the same type.
+
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!audio! & \href{http://docs.ros.org/hydro/api/audio\_common\_msgs/html/msg/AudioData.html}{audio\_common\_msgs/AudioData} \\\hline
+\verb!command! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!condition_after! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!condition_rcv! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!container! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\verb!info! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!initial_plan! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!new_plan! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!notification! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!object! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!object_pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!path! & \href{http://docs.ros.org/api/nav\_msgs/html/msg/Path.html}{nav\_msgs/Path} \\\hline
+\verb!plan! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!pointcloud! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/PointCloud2.html}{sensor\_msgs/PointCloud2} \\\hline
+\verb!pose2d! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose2D.html}{geometry\_msgs/Pose2D} \\\hline
+\verb!pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!position! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!transcriptions! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!tray! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!visitor! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\end{tabular}
+\end{center}
+
+
+\section{File Format}
+
+The YAML file should be composed of a single list of messages.
+
+Each message should have 4 items:
+\begin{itemize}
+ \item \verb!topic! - The topic name.
+ \item \verb!secs! - Timestamp of the message, in number of seconds since 1970.
+ \item \verb!nsecs! - Nanoseconds component of the timestamp.
+ \item \verb!message! - The message, according to the topic type.
+\end{itemize}
+
+The message should be formatted in YAML, according to its structure. This is the same as the output of \verb!rostopic echo!. However, binary fields may be specified in
+base 64 encoding.
+
+
+\section{Example File}
+
+\begin{verbatim}
+- topic: pose2d
+  secs: 1397024209
+  nsecs: 156423000
+  message:
+   x: 5.5
+   y: 6
+   theta: 6.4
+- topic: image
+  secs: 1397024210
+  nsecs: 53585000
+  message:
+   header:
+     seq: 306
+     stamp:
+       secs: 1397024210
+       nsecs: 53585000
+     frame_id: ''
+   height: 4
+   width: 4
+   encoding: bgr8
+   is_bigendian: 0
+   step: 12
+   data: !!binary JaU8JY0kGXUIAZ0UDWzgAXjgAb0kIglwbkGsnkWwoiWUfiGUhi2olhmUgc1YRaUw
+\end{verbatim}
+
+
+\section{Topics per Benchmark}
+
+\subsection{@Home Task Benchmark 1}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!audio! & \href{http://docs.ros.org/hydro/api/audio\_common\_msgs/html/msg/AudioData.html}{audio\_common\_msgs/AudioData} \\\hline
+\verb!command! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!pose2d! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose2D.html}{geometry\_msgs/Pose2D} \\\hline
+\verb!pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\verb!pointcloud! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/PointCloud2.html}{sensor\_msgs/PointCloud2} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Home Task Benchmark 2}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!command! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!pose2d! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose2D.html}{geometry\_msgs/Pose2D} \\\hline
+\verb!pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!visitor! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!audio! & \href{http://docs.ros.org/hydro/api/audio\_common\_msgs/html/msg/AudioData.html}{audio\_common\_msgs/AudioData} \\\hline
+\verb!notification! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Home Task Benchmark 3}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!pose2d! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose2D.html}{geometry\_msgs/Pose2D} \\\hline
+\verb!pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Work Task Benchmark 1}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!tray! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!container! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\verb!path! & \href{http://docs.ros.org/api/nav\_msgs/html/msg/Path.html}{nav\_msgs/Path} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Work Task Benchmark 2}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!path! & \href{http://docs.ros.org/api/nav\_msgs/html/msg/Path.html}{nav\_msgs/Path} \\\hline
+\verb!condition\_rcv! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!command! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!condition\_after! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Work Task Benchmark 3}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!initial\_plan! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!path! & \href{http://docs.ros.org/api/nav\_msgs/html/msg/Path.html}{nav\_msgs/Path} \\\hline
+\verb!notification! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!new\_plan! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!pose2d! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose2D.html}{geometry\_msgs/Pose2D} \\\hline
+\verb!pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Home Functional Benchmark 1}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!object! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!object\_pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\verb!pointcloud! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/PointCloud2.html}{sensor\_msgs/PointCloud2} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Home Functional Benchmark 2}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!notification! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!position! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Home Functional Benchmark 3}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!audio! & \href{http://docs.ros.org/hydro/api/audio\_common\_msgs/html/msg/AudioData.html}{audio\_common\_msgs/AudioData} \\\hline
+\verb!transcriptions! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!command! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!info! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Work Functional Benchmark 1}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!object! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!object\_pose! & \href{http://docs.ros.org/api/geometry\_msgs/html/msg/Pose.html}{geometry\_msgs/Pose} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\verb!pointcloud! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/PointCloud2.html}{sensor\_msgs/PointCloud2} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Work Functional Benchmark 2}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!object! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!notification! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\verb!image! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/Image.html}{sensor\_msgs/Image} \\\hline
+\verb!pointcloud! & \href{http://docs.ros.org/api/sensor\_msgs/html/msg/PointCloud2.html}{sensor\_msgs/PointCloud2} \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{@Work Functional Benchmark 3}
+\begin{center}
+\begin{tabular}{|c|c|}\hline
+Topic Name & Message Type \\\hline\hline
+\verb!plan! & \href{http://docs.ros.org/api/std\_msgs/html/msg/String.html}{std\_msgs/String} \\\hline
+\end{tabular}
+\end{center}
+
+
+\end{document}
