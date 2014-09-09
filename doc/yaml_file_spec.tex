@@ -16,6 +16,8 @@
 
 
 This document specifies the YAML file format that can be converted to ROS bag files. This closely follows the data items described in D-2.1.7.
+YAML format was chosen because it is a simple format, easy to produce without using any special library. Furthermore, the ROS messages format
+is already defined: as produced by the \verb!rostopic echo! command.
 
 
 \section{Topic Names}
@@ -64,7 +66,7 @@ Each message should have 4 items:
 \end{itemize}
 
 The message should be formatted in YAML, according to its structure. This is the same as the output of \verb!rostopic echo!. However, binary fields may be specified in
-base 64 encoding.
+base 64 encoding for much smaller files. You can copy the file \verb!src/base64.hpp! to your project, it depends only on boost to encode base 64.
 
 
 \section{Example File}
@@ -92,7 +94,8 @@ base 64 encoding.
    encoding: bgr8
    is_bigendian: 0
    step: 12
-   data: !!binary JaU8JY0kGXUIAZ0UDWzgAXjgAb0kIglwbkGsnkWwoiWUfiGUhi2olhmUgc1YRaUw
+   data:
+     !!binary JaU8JY0kGXUIAZ0UDWzgAXjgAb0kIglwbkGsnkWwoiWUfiGUhi2olhmUgc1YRaUw
 \end{verbatim}
 
 

@@ -17,7 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Boost REQUIRED COMPONENTS program_options)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(YAML REQUIRED yaml-cpp)
+pkg_check_modules(YAML REQUIRED yaml-0.1)
 include_directories(${YAML_INCLUDE_DIRS})
 link_directories(${YAML_LIBRARY_DIRS})
 
