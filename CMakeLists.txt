@@ -40,6 +40,10 @@ include_directories(${catkin_INCLUDE_DIRS})
 add_executable(rockin_converter src/converter.cpp)
 target_link_libraries(rockin_converter ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${YAML_LIBRARIES})
 
+# These are tests, should mimic the base64 util
+add_executable(base64_encode src/base64_encode.cpp)
+add_executable(base64_decode src/base64_decode.cpp)
+
 
 #############
 ## Install ##

@@ -38,14 +38,14 @@ base64_encode (std::vector<uint8_t> const& in,
   using namespace std;
   using namespace boost::archive::iterators;
 
-  typedef const uint8_t* i0;
+  typedef vector<uint8_t>::const_iterator i0;
   typedef transform_width<i0, 6, 8> i1;
   typedef base64_from_binary<i1> i2;
   // typedef insert_linebreaks<i2, 72> i3; // Doesn't respect YAML indentation
   typedef i2 b64;
 
   ostringstream os;
-  copy (b64 (&in[0]), b64 (&in[0] + in.size()), ostream_iterator<char> (os));
+  copy (b64 (in.begin()), b64 (in.end()), ostream_iterator<char> (os));
   const string base64_padding[] = {"", "==", "="};
   os << base64_padding[in.size() % 3];
   out = os.str();
@@ -60,7 +60,7 @@ base64_decode (std::string const& in,
   using namespace std;
   using namespace boost::archive::iterators;
 
-  typedef const char* i0;
+  typedef string::const_iterator i0;
   typedef remove_whitespace<i0> i1;
   typedef binary_from_base64<i1> i2;
   typedef transform_width<i2, 8, 6> i3;
@@ -73,7 +73,7 @@ base64_decode (std::string const& in,
 
   out.clear();
   out.reserve (in.size());
-  for (auto i = b64 (in.data()); i != b64 (in.data() + size); ++i) {
+  for (auto i = b64 (in.begin()); i != b64 (in.begin() + size); ++i) {
     out.push_back (*i);
   }
 }
