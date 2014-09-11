@@ -143,7 +143,7 @@ class Parser : boost::noncopyable
 
     string location()
     {
-      return boost::lexical_cast<string> (event_.start_mark.line) + ":" + boost::lexical_cast<string> (event_.start_mark.column);
+      return boost::lexical_cast<string> (event_.start_mark.line + 1) + ":" + boost::lexical_cast<string> (event_.start_mark.column);
     }
 
     void expect (yaml_event_type_t expected, string const& reason = "")
